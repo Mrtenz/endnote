@@ -1,0 +1,4 @@
+dist/
+lib/
+typings/
+node_modules/

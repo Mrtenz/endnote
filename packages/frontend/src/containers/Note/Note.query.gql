@@ -1,0 +1,9 @@
+query Note ($id: String!) {
+  note (id: $id) {
+    title
+    cipher
+    iv
+    hmac
+    views
+  }
+}

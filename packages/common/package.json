@@ -1,0 +1,28 @@
+{
+  "name": "@endnote/common",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "lib/cjs/index.js",
+  "module": "lib/es/index.js",
+  "typings": "typings/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "yarn run clean && yarn run build:source && yarn run build:declarations",
+    "build:source": "yarn run build:source:cjs && yarn run build:source:es",
+    "build:source:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src --extensions '.ts' --source-maps --out-dir lib/cjs",
+    "build:source:es": "cross-env NODE_ENV=production BABEL_ENV=es babel src --extensions '.ts' --source-maps --out-dir lib/es",
+    "build:declarations": "tsc",
+    "prepare": "yarn run build"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.6",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.8.3",
+    "@babel/preset-env": "^7.8.6",
+    "@babel/preset-typescript": "^7.8.3",
+    "cross-env": "^7.0.0"
+  }
+}

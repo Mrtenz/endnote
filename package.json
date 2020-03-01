@@ -1,0 +1,43 @@
+{
+  "name": "endnote",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "wsrun -- start",
+    "dev": "wsrun -- dev",
+    "lint": "yarn run lint:tsc && yarn run lint:tslint && yarn run lint:prettier",
+    "lint:tsc": "tsc --noEmit",
+    "lint:tslint": "tslint --project .",
+    "lint:prettier": "prettier --check '**/*.{ts,tsx,js,json}'",
+    "prettier": "prettier --write '**/*.{ts,tsx,js,json}'",
+    "prepare": "yarn workspace @endnote/common run prepare"
+  },
+  "devDependencies": {
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "prettier": "^1.19.1",
+    "tslint": "^6.0.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-origin-ordered-imports-rule": "^1.2.2",
+    "tslint-react": "^4.2.0",
+    "typescript": "^3.8.3",
+    "wsrun": "^5.2.0"
+  },
+  "lint-staged": {
+    "*.{js,json}": [
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "tslint --project . --fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
