@@ -9,7 +9,7 @@ https://endnote.to
 Before you send a note to the server, a random password is generated, which is used to derive a cryptographic key
 using [PBKDF2](https://en.wikipedia.org/wiki/PBKDF2). The note is then encrypted with
 [AES-256 encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), and a Hash-based Message
-Authentication Code is generated. The encrypted content, together with the initialisation factor (IV) that was used
+Authentication Code is generated. The encrypted content, together with the initialisation vector (IV) that was used
 to encrypt the content, and the HMAC are sent to the server. The server generates a random ID
 for the note, which is used for sharing purposes, and the generated password is appended as URL hash (which is not sent
 to the server at all). Only with this password you will be able to see a note.
