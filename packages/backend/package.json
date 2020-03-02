@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/",
+    "build": "tsc",
+    "start": "node lib/",
     "dev": "ts-node-dev src/"
   },
   "devDependencies": {

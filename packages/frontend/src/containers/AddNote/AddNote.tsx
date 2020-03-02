@@ -1,20 +1,16 @@
 import { useMutation } from '@apollo/client';
 import { encrypt, generateKey, generatePassword, hexifyObject, NoteModel } from '@endnote/common';
 import { RouteComponentProps } from '@reach/router';
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
-import Field from '../../components/Field';
+import React, { FunctionComponent, useState } from 'react';
+import AddNoteForm, { FormData } from '../../components/AddNoteForm';
 import Header from '../../components/Header';
-import HiddenInput from '../../components/HiddenInput';
-import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Heading from '../../components/ui/Heading';
 import PageContainer from '../../components/ui/PageContainer';
-import TextArea from '../../components/ui/TextArea';
 import { useSelector } from '../../hooks';
 import addNoteQuery from './AddNote.query.gql';
 import CaptchaModal from './CaptchaModal';
 import Settings from './Settings';
-import { DEFAULT_NOTE_TITLE } from '../../constants';
 
 interface AddNoteQueryData {
   addNote: Pick<NoteModel, 'id'>;
@@ -31,43 +27,35 @@ interface AddNoteVariables {
 type Props = RouteComponentProps;
 
 const AddNote: FunctionComponent<Props> = ({ navigate }) => {
-  const [title, setTitle] = useState<string>(DEFAULT_NOTE_TITLE);
-  const [content, setContent] = useState<string>('');
-  const [isVisible, srtVisible] = useState<boolean>(false);
+  const [formData, setFormData] = useState<FormData>();
+  const [isVisible, setVisible] = useState<boolean>(false);
   const [addNote, { loading }] = useMutation<AddNoteQueryData, AddNoteVariables>(addNoteQuery);
   const { deleteAfter, maxViews } = useSelector(state => state.settings);
 
-  const handleChangeTitle = (value: string) => {
-    setTitle(value);
-  };
-
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.currentTarget.value);
-  };
-
-  const handleSubmit = () => {
-    srtVisible(true);
+  const handleSubmit = (data: FormData) => {
+    setFormData(data);
+    setVisible(true);
   };
 
   const handleClose = () => {
-    srtVisible(false);
+    setVisible(false);
   };
 
   const handleComplete = (token: string) => {
-    srtVisible(false);
+    setVisible(false);
 
     const password = generatePassword();
     const salt = generatePassword();
 
     generateKey(password, salt)
-      .then(key => encrypt(content, key))
+      .then(key => encrypt(formData!.content, key))
       .then(hexifyObject)
       .then(input =>
         addNote({
           variables: {
             input: {
               ...input,
-              title,
+              title: formData!.title,
               deleteAfter,
               maxViews: maxViews === 0 ? undefined : maxViews,
               token
@@ -86,9 +74,6 @@ const AddNote: FunctionComponent<Props> = ({ navigate }) => {
     <>
       <Header>
         <Settings />
-        <Button type="primary" onClick={handleSubmit} disabled={loading}>
-          Save
-        </Button>
       </Header>
 
       <CaptchaModal isVisible={isVisible} onClose={handleClose} onComplete={handleComplete} />
@@ -96,10 +81,7 @@ const AddNote: FunctionComponent<Props> = ({ navigate }) => {
       <PageContainer>
         <Heading as="h2">New note</Heading>
         <Card grow={true}>
-          <HiddenInput value={title} defaultValue={DEFAULT_NOTE_TITLE} onChange={handleChangeTitle} />
-          <Field value={content} limit={20000}>
-            <TextArea as="textarea" value={content} onChange={handleChange} placeholder="Write some text here..." />
-          </Field>
+          <AddNoteForm isLoading={loading} onSubmit={handleSubmit} />
         </Card>
       </PageContainer>
     </>

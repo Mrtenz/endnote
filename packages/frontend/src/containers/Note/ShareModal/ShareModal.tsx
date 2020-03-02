@@ -3,7 +3,7 @@ import Field from '../../../components/Field';
 import Modal, { ModalBody, ModalFooter } from '../../../components/Modal';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
-import { APPLICATION_URL } from '../../../constants';
+import { useConfig } from '../../../hooks';
 
 interface Props {
   isVisible: boolean;
@@ -17,6 +17,7 @@ const ShareModal: FunctionComponent<Props> = ({ isVisible, id, password, onClose
   const withPassword = useRef<HTMLInputElement>(null);
   const withoutPassword = useRef<HTMLInputElement>(null);
   const onlyPassword = useRef<HTMLInputElement>(null);
+  const { APPLICATION_URL } = useConfig();
 
   const handleCopyWithPassword = () => {
     withPassword.current?.select();

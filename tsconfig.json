@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "lib",
     "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",

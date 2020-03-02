@@ -1,16 +1,21 @@
-import { ApolloProvider } from '@apollo/client';
 import React, { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
-import { client } from '../../client';
 import { store } from '../../store';
+import ApolloClientProvider from './ApolloClientProvider';
+import ConfigProvider from './ConfigProvider';
+import SentryProvider from './SentryProvider';
 import ThemeProvider from './ThemeProvider';
 
 const Providers: FunctionComponent = ({ children }) => (
-  <Provider store={store}>
-    <ThemeProvider>
-      <ApolloProvider client={client}>{children}</ApolloProvider>
-    </ThemeProvider>
-  </Provider>
+  <ConfigProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <SentryProvider>
+          <ApolloClientProvider>{children}</ApolloClientProvider>
+        </SentryProvider>
+      </ThemeProvider>
+    </Provider>
+  </ConfigProvider>
 );
 
 export default Providers;

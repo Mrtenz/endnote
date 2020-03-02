@@ -25,3 +25,6 @@ typings/
 .yarn-integrity
 .next
 dist/
+lib/
+docker-compose.yml
+Dockerfile

@@ -9,6 +9,7 @@ const TextArea = styled(Input)`
   padding: 1.5rem 2.2rem;
   border: none;
   background: none;
+  flex: 1;
 
   :focus {
     outline: none;

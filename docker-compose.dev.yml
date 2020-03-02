@@ -1,3 +1,8 @@
+#
+# This docker-compose file is intended for development only.
+# Do not use this in production!
+#
+
 version: '2'
 
 services:
@@ -15,6 +20,9 @@ services:
     build:
       context: .
       dockerfile: packages/backend/Dockerfile
+      args:
+        - NODE_ENV=development
+        - COMMAND=dev
     restart: always
     env_file:
       - .env
@@ -24,18 +32,29 @@ services:
       - 8000:8000
     links:
       - postgres:postgres
+    volumes:
+      - ./packages/backend/src:/app/packages/backend/src
 
   frontend:
     build:
       context: .
       dockerfile: packages/frontend/Dockerfile
+      args:
+        - NODE_ENV=development
+        - COMMAND=dev
     restart: always
     depends_on:
       - backend
     env_file:
       - .env
+    environment:
+      - PORT=8001
     ports:
-      - 8001:8000
+      - 8001:8001
+    links:
+      - postgres:postgres
+    volumes:
+      - ./packages/frontend/src:/app/packages/frontend/src
 
 volumes:
   postgres-data:

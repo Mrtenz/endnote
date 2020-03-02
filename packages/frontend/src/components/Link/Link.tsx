@@ -1,20 +1,39 @@
 import { Link as ReachLink } from '@reach/router';
 import React, { FunctionComponent } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const StyledLink = styled(ReachLink)`
+const LINK_STYLE = css`
   text-decoration: none;
+`;
+
+const InternalLink = styled(ReachLink)`
+  ${LINK_STYLE};
+`;
+
+const ExternalLink = styled.a`
+  ${LINK_STYLE};
 `;
 
 interface Props {
   to: string;
+  external?: boolean;
   className?: string;
 }
 
-const Link: FunctionComponent<Props> = ({ className, to, children }) => (
-  <StyledLink className={className} to={to}>
-    {children}
-  </StyledLink>
-);
+const Link: FunctionComponent<Props> = ({ className, to, external, children }) => {
+  if (external) {
+    return (
+      <ExternalLink className={className} href={to} rel="noopener noreferrer">
+        {children}
+      </ExternalLink>
+    );
+  }
+
+  return (
+    <InternalLink className={className} to={to}>
+      {children}
+    </InternalLink>
+  );
+};
 
 export default Link;

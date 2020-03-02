@@ -28,15 +28,13 @@ bootstrap()
     /**
      * Gracefully shutdown on SIGTERM.
      */
-    process.on('SIGTERM', async () => {
-      try {
-        await Promise.all([closeServer(server), connection.close()]);
-      } catch (error) {
-        console.error('Could not gracefully stop server:', error);
-        return process.exit(1);
-      }
-
-      process.exit(0);
+    process.on('SIGTERM', () => {
+      Promise.all([closeServer(server), connection.close()])
+        .then(() => process.exit(0))
+        .catch(error => {
+          console.error('Could not gracefully stop server:', error);
+          process.exit(1);
+        });
     });
   })
   // tslint:disable-next-line:no-console

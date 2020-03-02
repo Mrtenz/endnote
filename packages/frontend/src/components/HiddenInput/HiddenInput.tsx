@@ -1,3 +1,4 @@
+import { darken } from 'polished';
 import React, { ChangeEvent, FunctionComponent, KeyboardEvent, useState } from 'react';
 import styled from 'styled-components';
 import Field from '../Field';
@@ -17,6 +18,10 @@ interface HideableFieldProps {
 
 const HiddenLabel = styled.label`
   cursor: text;
+
+  ${Heading} {
+    border-bottom: 0.1rem dotted ${({ theme }) => darken(0.1, theme.border)};
+  }
 `;
 
 const HideableField = styled.div<HideableFieldProps>`

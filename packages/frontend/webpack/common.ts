@@ -61,13 +61,7 @@ const common: Configuration = {
     ]
   },
   plugins: [
-    new EnvironmentPlugin([
-      'APPLICATION_URL',
-      'NODE_ENV',
-      'API_ENDPOINT',
-      'RECAPTCHA_SITE_KEY',
-      'SENTRY_FRONTEND_ENDPOINT'
-    ]),
+    new EnvironmentPlugin(['NODE_ENV']),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: resolve(SOURCE_PATH, 'index.html')

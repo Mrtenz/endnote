@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
+import { BITCOIN_DONATION_ADDRESS, ETHEREUM_DONATION_ADDRESS } from '../../constants';
 import Text from '../ui/Text';
+import Socials from './Socials';
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -18,11 +20,11 @@ const FooterContainer = styled.footer`
 
 const Footer: FunctionComponent = () => (
   <FooterContainer>
-    <Text muted={true}>Made by Maarten Zuidhoorn</Text>
+    <Socials />
     <section>
-      <Text muted={true}>Donations:</Text>
-      <Text muted={true}>Ethereum (ETH)</Text>
-      <Text muted={true}>Bitcoin (BTC)</Text>
+      <Text muted={true}>Donations</Text>
+      <Text muted={true}>Ethereum (ETH): {ETHEREUM_DONATION_ADDRESS}</Text>
+      <Text muted={true}>Bitcoin (BTC) {BITCOIN_DONATION_ADDRESS}</Text>
     </section>
   </FooterContainer>
 );

@@ -12,8 +12,7 @@
     "lint:tsc": "tsc --noEmit",
     "lint:tslint": "tslint --project .",
     "lint:prettier": "prettier --check '**/*.{ts,tsx,js,json}'",
-    "prettier": "prettier --write '**/*.{ts,tsx,js,json}'",
-    "prepare": "yarn workspace @endnote/common run prepare"
+    "prettier": "prettier --write '**/*.{ts,tsx,js,json}'"
   },
   "devDependencies": {
     "husky": "^4.2.3",

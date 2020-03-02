@@ -1,19 +1,33 @@
 import { getByteLength } from '@endnote/common';
 import { darken, lighten, transitions } from 'polished';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { DEFAULT_TRANSITION } from '../../theme';
 import Text from '../ui/Text';
 
-const FieldContainer = styled.label`
+interface FieldContainerProps {
+  grow?: boolean;
+}
+
+const FieldContainer = styled.label<FieldContainerProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-bottom: 2.4rem;
+
+  ${({ grow }) =>
+    grow &&
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1;
+    `};
 `;
 
-const InnerField = styled.div`
+const InnerField = styled.div<FieldContainerProps>`
   display: flex;
+  width: 100%;
   border: 0.1rem solid ${({ theme }) => theme.border};
   border-radius: ${({ theme }) => theme.borderRadius};
   background: ${({ theme }) => theme.fieldBackground};
@@ -25,6 +39,15 @@ const InnerField = styled.div`
     border-color: ${({ theme }) => theme.borderFocus};
     background-color: ${({ theme }) => lighten(0.025, theme.fieldBackground)};
   }
+
+  ${({ grow }) =>
+    grow &&
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1;
+    `};
 `;
 
 const FieldDescription = styled(Text)`
@@ -71,9 +94,10 @@ interface Props {
   description?: string;
   value?: string;
   limit?: number;
+  grow?: boolean;
 }
 
-const Field: FunctionComponent<Props> = ({ label, description, value, limit, children }) => {
+const Field: FunctionComponent<Props> = ({ label, description, value, limit, grow, children }) => {
   const [length, setLength] = useState<number>(0);
 
   useEffect(() => {
@@ -83,10 +107,10 @@ const Field: FunctionComponent<Props> = ({ label, description, value, limit, chi
   }, [value]);
 
   return (
-    <FieldContainer>
+    <FieldContainer grow={grow}>
       {label && <FieldLabel>{label}</FieldLabel>}
       {description && <FieldDescription>{description}</FieldDescription>}
-      <InnerField>{children}</InnerField>
+      <InnerField grow={grow}>{children}</InnerField>
       {limit && (
         <FieldCounter overLimit={length > limit}>
           {length.toLocaleString('en-GB')} / {limit.toLocaleString('en-GB')}

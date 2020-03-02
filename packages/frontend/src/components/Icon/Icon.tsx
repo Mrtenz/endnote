@@ -4,12 +4,20 @@ import { colors } from '../../theme';
 
 import arrowDown from '../../assets/icons/arrow-down.svg';
 import settings from '../../assets/icons/cogs.svg';
+import cursorText from '../../assets/icons/cursor-text.svg';
+import email from '../../assets/icons/email.svg';
+import github from '../../assets/icons/github.svg';
+import note from '../../assets/icons/note.svg';
 import share from '../../assets/icons/share.svg';
 import theme from '../../assets/icons/theme.svg';
 
 export const SUPPORTED_ICONS = {
   arrowDown,
   settings,
+  cursorText,
+  email,
+  github,
+  note,
   share,
   theme
 };
@@ -27,6 +35,7 @@ const StyledIcon = styled.span<OwnProps>`
   width: ${({ size = '2rem' }) => size};
   height: ${({ size = '2rem' }) => size};
   mask: ${({ icon }) => `url(${SUPPORTED_ICONS[icon]})`} no-repeat center;
+  mask-size: ${({ size = '2rem' }) => size};
   background: ${({ color = 'primary' }) => colors[color]} !important;
 `;
 

@@ -1,0 +1,20 @@
+FROM node:12-alpine
+
+ARG COMMAND=start
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV} \
+    COMMAND=${COMMAND}
+
+WORKDIR /app
+COPY tsconfig.json package.json yarn.lock ./
+COPY ./packages/common ./packages/common/
+COPY ./packages/backend/package.json ./packages/backend/
+
+RUN yarn install --frozen-lockfile
+
+WORKDIR /app/packages/backend
+COPY ./packages/backend .
+
+EXPOSE 8001
+
+CMD yarn run ${COMMAND}

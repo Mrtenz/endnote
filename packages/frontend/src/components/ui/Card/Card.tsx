@@ -18,6 +18,9 @@ const Card = styled.section<Props>`
   ${({ grow }) =>
     grow &&
     css`
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       flex: 1;
     `};
 

@@ -1,6 +1,6 @@
 import { transitions } from 'polished';
 import styled from 'styled-components';
-import { DEFAULT_TRANSITION } from '../../../theme/theme';
+import { DEFAULT_TRANSITION } from '../../../theme';
 import Icon from '../../Icon';
 
 const IconButton = styled(Icon)`
