@@ -1,6 +1,6 @@
 {
   "name": "@endnote/backend",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
@@ -14,7 +14,7 @@
     "ts-node-dev": "^1.0.0-pre.44"
   },
   "dependencies": {
-    "@endnote/common": "^0.0.0",
+    "@endnote/common": "^0.1.0",
     "@sentry/node": "^5.12.5",
     "apollo-server-express": "^2.10.1",
     "class-validator": "^0.11.0",
