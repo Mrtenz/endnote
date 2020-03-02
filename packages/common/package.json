@@ -12,7 +12,8 @@
     "build:source": "yarn run build:source:cjs && yarn run build:source:es",
     "build:source:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src --extensions '.ts' --source-maps --out-dir lib/cjs",
     "build:source:es": "cross-env NODE_ENV=production BABEL_ENV=es babel src --extensions '.ts' --source-maps --out-dir lib/es",
-    "build:declarations": "tsc"
+    "build:declarations": "tsc",
+    "prepare": "yarn run build"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
