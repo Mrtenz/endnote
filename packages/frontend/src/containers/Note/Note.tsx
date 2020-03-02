@@ -8,7 +8,6 @@ import FailedToLoad from '../../components/FailedToLoad';
 import Header from '../../components/Header';
 import NoteCard from '../../components/NoteCard';
 import NotFound from '../../components/NotFound';
-import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Heading from '../../components/ui/Heading';
 import PageContainer from '../../components/ui/PageContainer';

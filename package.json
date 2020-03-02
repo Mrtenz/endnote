@@ -1,10 +1,12 @@
 {
   "name": "endnote",
+  "version": "0.1.0",
+  "repository": "https://github.com/Mrtenz/endnote.git",
+  "author": "Maarten Zuidhoorn <maarten@zuidhoorn.com>",
   "license": "MIT",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "engines": {
+    "node": "12"
+  },
   "scripts": {
     "start": "wsrun -- start",
     "dev": "wsrun -- dev",
@@ -39,5 +41,9 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
 }
