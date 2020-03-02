@@ -10,6 +10,8 @@ const TextArea = styled(Input)`
   border: none;
   background: none;
   flex: 1;
+  box-sizing: border-box;
+  min-height: 25rem;
 
   :focus {
     outline: none;

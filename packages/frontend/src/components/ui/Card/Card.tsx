@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import breakpoint from '../../../theme/breakpoints';
 import Heading from '../Heading';
 
 interface Props {
@@ -14,6 +15,10 @@ const Card = styled.section<Props>`
   max-width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
+
+  ${breakpoint('md')`
+    padding: 2em 1.2rem;
+  `};
 
   ${({ grow }) =>
     grow &&

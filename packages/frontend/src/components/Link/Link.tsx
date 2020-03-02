@@ -1,9 +1,17 @@
 import { Link as ReachLink } from '@reach/router';
+import { lighten, transitions } from 'polished';
 import React, { FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
+import { DEFAULT_TRANSITION } from '../../theme';
 
 const LINK_STYLE = css`
   text-decoration: none;
+  color: ${({ theme }) => theme.link};
+  ${transitions(['color'], DEFAULT_TRANSITION)};
+
+  :hover {
+    color: ${({ theme }) => lighten(0.1, theme.link)};
+  }
 `;
 
 const InternalLink = styled(ReachLink)`
@@ -14,7 +22,7 @@ const ExternalLink = styled.a`
   ${LINK_STYLE};
 `;
 
-interface Props {
+export interface Props {
   to: string;
   external?: boolean;
   className?: string;

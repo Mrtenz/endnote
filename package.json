@@ -8,6 +8,7 @@
   "scripts": {
     "start": "wsrun -- start",
     "dev": "wsrun -- dev",
+    "dev:docker": "docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up --build",
     "lint": "yarn run lint:tsc && yarn run lint:tslint && yarn run lint:prettier",
     "lint:tsc": "tsc --noEmit",
     "lint:tslint": "tslint --project .",

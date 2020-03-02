@@ -1,20 +1,18 @@
 FROM node:12-alpine
 
-ARG COMMAND=start
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV} \
-    COMMAND=${COMMAND}
+ENV PORT=8000
+ENV NODE_ENV=development
 
 WORKDIR /app
 COPY tsconfig.json package.json yarn.lock ./
 COPY ./packages/common ./packages/common/
-COPY ./packages/frontend/package.json ./packages/frontend/
+COPY ./packages/frontend ./packages/frontend/
 
-RUN yarn install --frozen-lockfile
+RUN yarn install --silent --frozen-lockfile --production=false && \
+    yarn workspace @endnote/common run build && \
+    apk add --no-cache bash && \
+    chmod +x /app/packages/frontend/environment.sh
 
 WORKDIR /app/packages/frontend
-COPY ./packages/frontend .
-
-EXPOSE 8000
-
-CMD yarn run ${COMMAND}
+EXPOSE ${PORT}
+CMD /bin/bash -c ./environment.sh > /app/packages/frontend/config.json && yarn run dev

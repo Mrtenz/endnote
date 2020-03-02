@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { BITCOIN_DONATION_ADDRESS, ETHEREUM_DONATION_ADDRESS } from '../../constants';
+import breakpoint from '../../theme/breakpoints';
 import Text from '../ui/Text';
+import Donate from './Donate';
 import Socials from './Socials';
 
 const FooterContainer = styled.footer`
@@ -16,16 +17,16 @@ const FooterContainer = styled.footer`
     font-size: 1.3rem;
     margin: 0;
   }
+
+  ${breakpoint('md')`
+    flex-direction: column;
+  `};
 `;
 
 const Footer: FunctionComponent = () => (
   <FooterContainer>
     <Socials />
-    <section>
-      <Text muted={true}>Donations</Text>
-      <Text muted={true}>Ethereum (ETH): {ETHEREUM_DONATION_ADDRESS}</Text>
-      <Text muted={true}>Bitcoin (BTC) {BITCOIN_DONATION_ADDRESS}</Text>
-    </section>
+    <Donate />
   </FooterContainer>
 );
 

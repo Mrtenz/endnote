@@ -1,4 +1,4 @@
-import { transparentize } from 'polished';
+import { darken, transparentize } from 'polished';
 import { DefaultTheme } from 'styled-components';
 import arrowDownDark from '../assets/icons/arrow-down-dark.svg';
 import arrowDown from '../assets/icons/arrow-down.svg';
@@ -19,7 +19,9 @@ export const colors = {
 
   grey: '#434a54',
   lightGrey: '#aab2bd',
-  lighterGrey: '#e8eff4'
+  lighterGrey: '#e8eff4',
+
+  cyan: '#57c7d4'
 };
 
 export const light: DefaultTheme = {
@@ -34,6 +36,7 @@ export const light: DefaultTheme = {
   invertedText: 'white',
   buttonText: '#343a40',
   buttonInvertedText: 'white',
+  link: darken(0.2, colors.cyan),
 
   border: '#ebedf2',
   borderFocus: '#80bdff',
@@ -62,6 +65,7 @@ export const dark: DefaultTheme = {
   invertedText: '#343a40',
   buttonText: '#343a40',
   buttonInvertedText: 'white',
+  link: colors.cyan,
 
   border: '#09090b',
   borderFocus: '#80bdff',

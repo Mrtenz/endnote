@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import IconLink from '../../IconLink';
 import Tooltip, { Tooltippable } from '../../Tooltip';
 
-const SocialsContainer = styled.div`
+const SocialsContainer = styled.section`
   display: flex;
 
   ${Tooltippable} {

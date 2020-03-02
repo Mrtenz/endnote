@@ -19,15 +19,10 @@ services:
   backend:
     build:
       context: .
-      dockerfile: packages/backend/Dockerfile
-      args:
-        - NODE_ENV=development
-        - COMMAND=dev
+      dockerfile: packages/backend/Dockerfile.dev
     restart: always
     env_file:
       - .env
-    environment:
-      - PORT=8000
     ports:
       - 8000:8000
     links:
@@ -38,21 +33,14 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: packages/frontend/Dockerfile
-      args:
-        - NODE_ENV=development
-        - COMMAND=dev
+      dockerfile: packages/frontend/Dockerfile.dev
     restart: always
     depends_on:
       - backend
     env_file:
       - .env
-    environment:
-      - PORT=8001
     ports:
       - 8001:8001
-    links:
-      - postgres:postgres
     volumes:
       - ./packages/frontend/src:/app/packages/frontend/src
 

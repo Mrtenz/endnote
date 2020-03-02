@@ -1,11 +1,11 @@
 import { lighten, transitions } from 'polished';
 import styled, { css } from 'styled-components';
-import { DEFAULT_TRANSITION } from '../../../theme/theme';
+import { DEFAULT_TRANSITION } from '../../../theme';
 import Text from '../Text';
 
 type ButtonType = 'primary' | 'secondary' | 'success' | 'light' | 'dark';
 
-interface Props {
+export interface Props {
   disabled?: boolean;
   type?: ButtonType;
 }

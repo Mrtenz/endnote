@@ -13,6 +13,7 @@ declare module 'styled-components' {
     invertedText: string;
     buttonText: string;
     buttonInvertedText: string;
+    link: string;
 
     border: string;
     borderFocus: string;
@@ -40,6 +41,8 @@ declare module 'styled-components' {
       grey: string;
       lightGrey: string;
       lighterGrey: string;
+
+      cyan: string;
     };
   }
 }

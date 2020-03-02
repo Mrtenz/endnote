@@ -1,20 +1,16 @@
 FROM node:12-alpine
 
-ARG COMMAND=start
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV} \
-    COMMAND=${COMMAND}
+ENV PORT=8000
+ENV NODE_ENV=development
 
 WORKDIR /app
 COPY tsconfig.json package.json yarn.lock ./
 COPY ./packages/common ./packages/common/
-COPY ./packages/backend/package.json ./packages/backend/
+COPY ./packages/backend ./packages/backend/
 
-RUN yarn install --frozen-lockfile
+RUN yarn install --silent --frozen-lockfile --production=false && \
+    yarn workspace @endnote/common run build
 
 WORKDIR /app/packages/backend
-COPY ./packages/backend .
-
-EXPOSE 8001
-
-CMD yarn run ${COMMAND}
+EXPOSE ${PORT}
+CMD yarn run dev

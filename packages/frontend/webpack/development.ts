@@ -1,9 +1,9 @@
 import ForkCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 import { Configuration } from 'webpack';
 import { smart } from 'webpack-merge';
-import common from './common';
-
-const PORT = Number(process.env.PORT) || 8001;
+import common, { ROOT_PATH } from './common';
 
 const development: Configuration = {
   mode: 'development',
@@ -14,7 +14,15 @@ const development: Configuration = {
     historyApiFallback: true,
     hot: true,
     host: '0.0.0.0',
-    port: PORT
+    port: 8001,
+    before: app => {
+      const config = readFileSync(resolve(ROOT_PATH, 'config.json'), 'utf8');
+
+      app.get('/config.json', (_, response) => {
+        response.header('Content-Type', 'application/json');
+        response.end(config);
+      });
+    }
   },
   devtool: 'cheap-eval-source-map',
   plugins: [new ForkCheckerWebpackPlugin()]

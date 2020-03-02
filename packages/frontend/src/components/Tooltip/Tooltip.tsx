@@ -3,6 +3,7 @@ import { transitions } from 'polished';
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { DEFAULT_TRANSITION } from '../../theme';
+import breakpoint from '../../theme/breakpoints';
 import Text from '../ui/Text';
 
 interface Props {
@@ -28,6 +29,10 @@ const TooltipContainer = styled(motion.div)`
     font-size: 1.2rem;
     margin: 0;
   }
+
+  ${breakpoint('md')`
+    display: none;
+  `};
 `;
 
 export const Tooltippable = styled.div`

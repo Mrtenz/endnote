@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import { decryptAndVerify, dehexifyObject, NoteModel } from '@endnote/common';
 import { RouteComponentProps } from '@reach/router';
 import React, { FunctionComponent, useEffect, useState } from 'react';
+import ButtonLink from '../../components/ButtonLink';
 import ContentPlaceholder from '../../components/ContentPlaceholder';
 import FailedToLoad from '../../components/FailedToLoad';
 import Header from '../../components/Header';
@@ -92,7 +93,9 @@ const Note: FunctionComponent<Props> = ({ id, location }) => {
     <>
       <Header>
         {data?.note && <Share id={id!} password={key} />}
-        <Button type="dark">New note</Button>
+        <ButtonLink to="/" type="dark">
+          New note
+        </ButtonLink>
       </Header>
 
       <KeyModal isVisible={isVisible} onContinue={handleContinue} onClose={handleClose} />

@@ -29,7 +29,9 @@ const NoteCard: FunctionComponent<Props> = ({ title, content, views }) => (
   <Card>
     <CardHeading>
       <Heading as="h3">{title}</Heading>
-      <ViewsCounter muted={true}>{views} views</ViewsCounter>
+      <ViewsCounter muted={true}>
+        {views} view{views !== 1 && 's'}
+      </ViewsCounter>
     </CardHeading>
     <Text>{content}</Text>
   </Card>

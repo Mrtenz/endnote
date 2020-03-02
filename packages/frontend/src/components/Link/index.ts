@@ -1,1 +1,1 @@
-export { default } from './Link';
+export { default, Props } from './Link';
