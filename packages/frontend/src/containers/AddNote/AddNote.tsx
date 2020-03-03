@@ -67,7 +67,6 @@ const AddNote: FunctionComponent<Props> = ({ navigate }) => {
       )
       .then(({ data }) => {
         if (data) {
-          console.log(data);
           return navigate?.(`/${data?.addNote.id}#${password}${salt}`);
         }
       });

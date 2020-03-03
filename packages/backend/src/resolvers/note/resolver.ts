@@ -1,11 +1,11 @@
 import { generatePassword, getTimestamp } from '@endnote/common';
+import { randomBytes } from 'crypto';
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
 import { Connection, Repository } from 'typeorm';
 import { InjectConnection, InjectRepository } from 'typeorm-typedi-extensions';
 import { DeletionKey, DeletionKeyPayload, Note, NoteWithToken } from '../../models';
-import { AddNoteInput, DeleteNoteInput } from './input';
-import { randomBytes } from 'crypto';
 import { decryptToken, encryptToken } from '../../utils/tokens';
+import { AddNoteInput, DeleteNoteInput } from './input';
 
 @Resolver(() => Note)
 export class NoteResolver {

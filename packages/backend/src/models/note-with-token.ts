@@ -1,5 +1,5 @@
+import { Field, ObjectType } from 'type-graphql';
 import { Note } from './note';
-import { ObjectType, Field } from 'type-graphql';
 
 /**
  * Note with an extra token that is sent when a new note is created.
