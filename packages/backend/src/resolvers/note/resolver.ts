@@ -1,13 +1,19 @@
 import { generatePassword, getTimestamp } from '@endnote/common';
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
-import { Repository } from 'typeorm';
-import { InjectRepository } from 'typeorm-typedi-extensions';
-import { Note } from '../../models';
-import { NoteInput } from './note-input';
+import { Connection, Repository } from 'typeorm';
+import { InjectConnection, InjectRepository } from 'typeorm-typedi-extensions';
+import { DeletionKey, DeletionKeyPayload, Note, NoteWithToken } from '../../models';
+import { AddNoteInput, DeleteNoteInput } from './input';
+import { randomBytes } from 'crypto';
+import { decryptToken, encryptToken } from '../../utils/tokens';
 
 @Resolver(() => Note)
 export class NoteResolver {
-  constructor(@InjectRepository(Note) private readonly noteRepository: Repository<Note>) {}
+  constructor(
+    @InjectConnection() private readonly connection: Connection,
+    @InjectRepository(Note) private readonly noteRepository: Repository<Note>,
+    @InjectRepository(DeletionKey) private readonly deletionKeyRepository: Repository<DeletionKey>
+  ) {}
 
   /**
    * Get a note by ID. May return undefined if the Note could not be found.
@@ -36,19 +42,69 @@ export class NoteResolver {
   /**
    * Create a new note. The ID is automatically generated.
    *
-   * @param {NoteInput} input
-   * @return {Promise<Note>}
+   * @param {AddNoteInput} input
+   * @return {Promise<NoteWithToken>}
    */
-  @Mutation(() => Note)
-  async addNote(@Arg('note') { deleteAfter, token, ...rest }: NoteInput): Promise<Note> {
-    const id = generatePassword();
+  @Mutation(() => NoteWithToken)
+  async addNote(@Arg('note') { deleteAfter, token, ...rest }: AddNoteInput): Promise<NoteWithToken> {
+    return this.connection.transaction(async entityManager => {
+      const id = generatePassword();
+      const timestamp = getTimestamp(deleteAfter);
+      const note = entityManager.create(Note, {
+        ...rest,
+        id,
+        deleteAfter: timestamp
+      });
 
-    const note = this.noteRepository.create({
-      ...rest,
-      id,
-      deleteAfter: getTimestamp(deleteAfter)
+      const privateKey = randomBytes(32);
+      const deletionKey = entityManager.create(DeletionKey, {
+        note,
+        privateKey: privateKey.toString('hex'),
+        expiryDate: timestamp
+      });
+
+      await entityManager.save(note);
+      await entityManager.save(deletionKey);
+
+      const deletionKeyPayload = {
+        id: note.id
+      };
+
+      return {
+        ...note,
+        token: await encryptToken<DeletionKeyPayload>(deletionKeyPayload, privateKey),
+        expiryDate: timestamp
+      };
     });
+  }
 
-    return this.noteRepository.save(note);
+  @Mutation(() => Boolean)
+  async deleteNote(@Arg('note') { id, token }: DeleteNoteInput): Promise<boolean> {
+    const deletionKey = await this.deletionKeyRepository.findOneOrFail(id, { relations: ['note'] });
+
+    if (Date.now() > deletionKey.expiryDate) {
+      await this.deletionKeyRepository.delete(deletionKey);
+      throw new Error('Token is invalid: token has expired');
+    }
+
+    try {
+      const key = Buffer.from(deletionKey.privateKey, 'hex');
+      const payload = await decryptToken<DeletionKeyPayload>(token, key);
+      if (!payload.id) {
+        throw new Error('Token is invalid: missing payload ID');
+      }
+
+      if (payload.id !== id) {
+        throw new Error('Token is invalid: payload ID does not match with requested ID');
+      }
+
+      await this.noteRepository.delete(deletionKey.note);
+
+      return true;
+    } catch {
+      throw new Error('Token is invalid: failed to decrypt the token payload');
+    }
+
+    return false;
   }
 }

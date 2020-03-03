@@ -1,6 +1,6 @@
 import { Connection, ConnectionOptions, createConnection } from 'typeorm';
 import migrations from './migrations';
-import { Note } from './models';
+import { DeletionKey, Note } from './models';
 
 interface DatabaseOptions {
   type: string;
@@ -17,7 +17,7 @@ interface DatabaseOptions {
 export const initialiseConnection = async (options: DatabaseOptions): Promise<Connection> => {
   const connection = await createConnection({
     ...options,
-    entities: [Note],
+    entities: [DeletionKey, Note],
     migrations,
     migrationsRun: true
   } as ConnectionOptions);

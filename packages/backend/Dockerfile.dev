@@ -8,7 +8,8 @@ COPY tsconfig.json package.json yarn.lock ./
 COPY ./packages/common ./packages/common/
 COPY ./packages/backend ./packages/backend/
 
-RUN yarn install --silent --frozen-lockfile --production=false && \
+RUN apk add --no-cache python3 python3-dev build-base && \
+    yarn install --frozen-lockfile --production=false && \
     yarn workspace @endnote/common run build
 
 WORKDIR /app/packages/backend

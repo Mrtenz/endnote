@@ -15,7 +15,7 @@
     "lint:tsc": "tsc --noEmit",
     "lint:tslint": "tslint --project .",
     "lint:prettier": "prettier --check '**/*.{ts,tsx,js,json}'",
-    "prettier": "prettier --write '**/*.{ts,tsx,js,json}'"
+    "prettier": "prettier --write '**/*.{ts,tsx,js,json,md}'"
   },
   "devDependencies": {
     "husky": "^4.2.3",
@@ -29,7 +29,7 @@
     "wsrun": "^5.2.0"
   },
   "lint-staged": {
-    "*.{js,json}": [
+    "*.{js,json,md}": [
       "prettier --write"
     ],
     "*.{ts,tsx}": [

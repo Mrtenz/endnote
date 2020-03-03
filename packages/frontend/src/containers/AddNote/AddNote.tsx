@@ -13,7 +13,9 @@ import CaptchaModal from './CaptchaModal';
 import Settings from './Settings';
 
 interface AddNoteQueryData {
-  addNote: Pick<NoteModel, 'id'>;
+  addNote: Pick<NoteModel, 'id'> & {
+    token: string;
+  };
 }
 
 interface AddNoteVariables {
@@ -65,6 +67,7 @@ const AddNote: FunctionComponent<Props> = ({ navigate }) => {
       )
       .then(({ data }) => {
         if (data) {
+          console.log(data);
           return navigate?.(`/${data?.addNote.id}#${password}${salt}`);
         }
       });

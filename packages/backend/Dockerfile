@@ -6,7 +6,8 @@ COPY tsconfig.json package.json yarn.lock ./
 COPY ./packages/common ./packages/common/
 COPY ./packages/backend ./packages/backend/
 
-RUN yarn install --silent --frozen-lockfile && \
+RUN apk add --no-cache python3 python3-dev build-base && \
+    yarn install --silent --frozen-lockfile && \
     yarn workspace @endnote/common run build && \
     yarn workspace @endnote/backend run build
 
@@ -18,7 +19,8 @@ COPY tsconfig.json package.json yarn.lock ./
 COPY ./packages/common/package.json ./packages/common/
 COPY ./packages/backend/package.json ./packages/backend/
 
-RUN yarn install --silent --frozen-lockfile --production
+RUN apk add --no-cache python3 python3-dev build-base && \
+    yarn install --silent --frozen-lockfile --production
 
 # Application runner
 FROM node:12-alpine

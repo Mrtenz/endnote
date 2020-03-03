@@ -1,5 +1,6 @@
-mutation ($input: NoteInput!) {
+mutation ($input: AddNoteInput!) {
   addNote (note: $input) {
     id
+    token
   }
 }

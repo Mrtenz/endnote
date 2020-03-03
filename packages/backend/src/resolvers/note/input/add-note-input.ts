@@ -12,14 +12,11 @@ import {
   Min
 } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
-import { Note } from '../../models';
-import { IsValidToken } from '../../utils/recaptcha';
+import { Note } from '../../../models';
+import { IsValidToken } from '../../../utils/recaptcha';
 
-/**
- * Input used for the `addNote` mutation.
- */
 @InputType()
-export class NoteInput implements Partial<Note> {
+export class AddNoteInput implements Partial<Note> {
   @Field()
   @IsNotEmpty()
   @IsString()

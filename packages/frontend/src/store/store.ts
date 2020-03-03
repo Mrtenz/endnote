@@ -1,12 +1,14 @@
 import { configureStore as configureReduxStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import { IS_DEVELOPMENT } from '../constants';
+import { IS_DEVELOPMENT, LOCAL_REDUX_STORE } from '../constants';
 import { localStorageMiddleware } from './middleware';
 import { rootReducer } from './reducer';
 import { SettingsState } from './settings';
+import { TokensState } from './tokens';
 
 export interface ApplicationState {
   settings: SettingsState;
+  tokens: TokensState;
 }
 
 /**
@@ -16,8 +18,8 @@ export const store = configureReduxStore<ApplicationState>({
   reducer: rootReducer,
   middleware: [
     localStorageMiddleware({
-      path: 'state',
-      keys: ['settings']
+      path: LOCAL_REDUX_STORE,
+      keys: ['settings', 'tokens']
     }),
     logger
   ] as any // tslint:disable-line
