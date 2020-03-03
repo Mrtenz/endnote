@@ -5,7 +5,7 @@ import { rehydrate } from '../middleware';
 export interface Token {
   id: string;
   token: string;
-  expiryDate: string;
+  expiryDate: number;
 }
 
 export interface TokensState {

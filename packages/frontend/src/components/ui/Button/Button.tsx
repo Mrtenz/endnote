@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { DEFAULT_TRANSITION } from '../../../theme';
 import Text from '../Text';
 
-type ButtonType = 'primary' | 'secondary' | 'success' | 'light' | 'dark';
+type ButtonType = 'primary' | 'secondary' | 'success' | 'danger' | 'light' | 'dark';
 
 export interface Props {
   disabled?: boolean;

@@ -22,7 +22,7 @@ content is decrypted using the password and you will see the note.
 ## Running your own
 
 You can also deploy your own version of Endnote by following these instructions. Endnote consists of two separate
-modules: the back-end API server and a front-end website. You can run and deploy these modules separate from each other.
+modules: the backend API server and a frontend website. You can (and should) run and deploy these modules separate from each other.
 
 ### Docker
 

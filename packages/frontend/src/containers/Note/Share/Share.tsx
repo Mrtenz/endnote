@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import Tooltip from '../../../components/Tooltip';
 import IconButton from '../../../components/ui/IconButton';
-import ShareModal from '../ShareModal/ShareModal';
+import ShareModal from '../ShareModal';
 
 interface Props {
   id: string;

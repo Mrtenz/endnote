@@ -7,14 +7,16 @@ import Header from '../../components/Header';
 import Card from '../../components/ui/Card';
 import Heading from '../../components/ui/Heading';
 import PageContainer from '../../components/ui/PageContainer';
-import { useSelector } from '../../hooks';
+import { useDispatch, useSelector } from '../../hooks';
 import addNoteQuery from './AddNote.query.gql';
 import CaptchaModal from './CaptchaModal';
 import Settings from './Settings';
+import { addToken } from '../../store/tokens';
 
 interface AddNoteQueryData {
   addNote: Pick<NoteModel, 'id'> & {
     token: string;
+    expiryDate: number;
   };
 }
 
@@ -33,6 +35,7 @@ const AddNote: FunctionComponent<Props> = ({ navigate }) => {
   const [isVisible, setVisible] = useState<boolean>(false);
   const [addNote, { loading }] = useMutation<AddNoteQueryData, AddNoteVariables>(addNoteQuery);
   const { deleteAfter, maxViews } = useSelector(state => state.settings);
+  const dispatch = useDispatch();
 
   const handleSubmit = (data: FormData) => {
     setFormData(data);
@@ -67,7 +70,12 @@ const AddNote: FunctionComponent<Props> = ({ navigate }) => {
       )
       .then(({ data }) => {
         if (data) {
-          return navigate?.(`/${data?.addNote.id}#${password}${salt}`);
+          dispatch(addToken({
+            id: data.addNote.id,
+            token: data.addNote.token,
+            expiryDate: data.addNote.expiryDate
+          }));
+          return navigate?.(`/${data.addNote.id}#${password}${salt}`);
         }
       });
   };

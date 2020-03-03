@@ -10,6 +10,7 @@ import github from '../../assets/icons/github.svg';
 import note from '../../assets/icons/note.svg';
 import share from '../../assets/icons/share.svg';
 import theme from '../../assets/icons/theme.svg';
+import trashCan from '../../assets/icons/trash-can.svg';
 
 export const SUPPORTED_ICONS = {
   arrowDown,
@@ -19,7 +20,8 @@ export const SUPPORTED_ICONS = {
   github,
   note,
   share,
-  theme
+  theme,
+  trashCan
 };
 
 interface OwnProps {

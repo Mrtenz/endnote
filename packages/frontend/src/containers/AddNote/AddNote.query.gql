@@ -2,5 +2,6 @@ mutation ($input: AddNoteInput!) {
   addNote (note: $input) {
     id
     token
+    expiryDate
   }
 }

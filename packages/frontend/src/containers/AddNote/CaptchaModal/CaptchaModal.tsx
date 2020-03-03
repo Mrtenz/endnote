@@ -3,7 +3,8 @@ import ReCaptcha from 'react-google-recaptcha';
 import Modal, { ModalBody, ModalFooter } from '../../../components/Modal';
 import Button from '../../../components/ui/Button';
 import Text from '../../../components/ui/Text';
-import { useConfig } from '../../../hooks';
+import { useConfig, useSelector } from '../../../hooks';
+import { Theme } from '../../../store/settings';
 
 interface Props {
   isVisible: boolean;
@@ -14,6 +15,7 @@ interface Props {
 
 const CaptchaModal: FunctionComponent<Props> = ({ isVisible, onClose, onComplete }) => {
   const { RECAPTCHA_SITE_KEY } = useConfig();
+  const theme = useSelector(state => state.settings.theme);
   const [token, setToken] = useState<string | null>('');
 
   useEffect(() => {
@@ -34,7 +36,7 @@ const CaptchaModal: FunctionComponent<Props> = ({ isVisible, onClose, onComplete
     <Modal title="Almost done..." isVisible={isVisible} onClose={onClose}>
       <ModalBody>
         <Text>Please complete the captcha to continue.</Text>
-        <ReCaptcha sitekey={RECAPTCHA_SITE_KEY} onChange={setToken} onExpired={handleExpired} />
+        <ReCaptcha sitekey={RECAPTCHA_SITE_KEY} theme={theme === Theme.LIGHT ? 'light' : 'dark'} onChange={setToken} onExpired={handleExpired} />
       </ModalBody>
       <ModalFooter>
         <Button type="primary" disabled={!token} onClick={handleContinue}>

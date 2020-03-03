@@ -14,6 +14,9 @@ import PageContainer from '../../components/ui/PageContainer';
 import KeyModal from './KeyModal/KeyModal';
 import noteQuery from './Note.query.gql';
 import Share from './Share';
+import DeleteNote from '../DeleteNote';
+import { useAlert } from '../../hooks';
+import Text from '../../components/ui/Text';
 
 interface NoteQueryData {
   note: Pick<NoteModel, 'title' | 'cipher' | 'iv' | 'hmac' | 'views'>;
@@ -26,6 +29,7 @@ interface Params {
 type Props = RouteComponentProps<Params>;
 
 const Note: FunctionComponent<Props> = ({ id, location }) => {
+  const alert = useAlert();
   const [key, setKey] = useState<string>('');
   const [isVisible, setVisible] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
@@ -54,7 +58,13 @@ const Note: FunctionComponent<Props> = ({ id, location }) => {
 
       decryptAndVerify(key, cipher, iv, hmac)
         .then(setContent)
-        .catch(console.error);
+        .catch(() => {
+          alert('Failed to decrypt the note', (
+            <Text>
+              The note could not be decrypted. Please make sure the password is correct.
+            </Text>
+          ))
+        });
     }
   }, [key, data]);
 
@@ -71,33 +81,38 @@ const Note: FunctionComponent<Props> = ({ id, location }) => {
   if (loading || !content) {
     component = (
       <Card>
-        <ContentPlaceholder />
+        <ContentPlaceholder/>
       </Card>
     );
   }
 
   if (!loading && !data?.note) {
-    component = <NotFound />;
+    component = <NotFound/>;
   }
 
   if (error) {
-    component = <FailedToLoad />;
+    component = <FailedToLoad/>;
   }
 
   if (data && content) {
-    component = <NoteCard title={data.note.title} content={content} views={data.note.views} />;
+    component = <NoteCard title={data.note.title} content={content} views={data.note.views}/>;
   }
 
   return (
     <>
       <Header>
-        {data?.note && <Share id={id!} password={key} />}
+        {data?.note && (
+          <>
+            <DeleteNote id={id!}/>
+            <Share id={id!} password={key}/>
+          </>
+        )}
         <ButtonLink to="/" type="dark">
           New note
         </ButtonLink>
       </Header>
 
-      <KeyModal isVisible={isVisible} onContinue={handleContinue} onClose={handleClose} />
+      <KeyModal isVisible={isVisible} onContinue={handleContinue} onClose={handleClose}/>
 
       <PageContainer>
         <Heading as="h2">View note</Heading>

@@ -15,7 +15,7 @@ export const colors = {
   success: '#1bcfb4',
   info: '#198ae3',
   warning: '#fed713',
-  error: '#fe7c96',
+  danger: '#fe7c96',
 
   grey: '#434a54',
   lightGrey: '#aab2bd',
@@ -73,7 +73,7 @@ export const dark: DefaultTheme = {
 
   modal: {
     background: transparentize(0.5, colors.dark),
-    contentBackground: '#151519',
+    contentBackground: '#222328',
     closeButton: '#6a6a6a'
   },
 

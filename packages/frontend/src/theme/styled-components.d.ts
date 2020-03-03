@@ -36,7 +36,7 @@ declare module 'styled-components' {
       success: string;
       info: string;
       warning: string;
-      error: string;
+      danger: string;
 
       grey: string;
       lightGrey: string;
