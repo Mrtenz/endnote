@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import deleteNoteQuery from './DeleteNote.query.gql';
 import { useMutation } from '@apollo/client';
-import Delete from './Delete';
+import { useNavigate } from '@reach/router';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '../../hooks';
 import { removeToken, Token } from '../../store/tokens';
-import { useNavigate } from '@reach/router';
+import Delete from './Delete';
+import deleteNoteQuery from './DeleteNote.query.gql';
 
 interface DeleteNoteVariables {
   input: {
@@ -43,12 +43,12 @@ const DeleteNote: FunctionComponent<Props> = ({ id }) => {
         })
         .then(() => navigate('/'))
         // TODO: Error handling
-        .catch(console.error)
+        .catch(console.error);
     }
   };
 
   if (token) {
-    return <Delete onConfirm={handleConfirm}/>;
+    return <Delete onConfirm={handleConfirm} />;
   }
 
   return null;

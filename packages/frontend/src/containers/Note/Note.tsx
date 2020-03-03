@@ -11,12 +11,12 @@ import NotFound from '../../components/NotFound';
 import Card from '../../components/ui/Card';
 import Heading from '../../components/ui/Heading';
 import PageContainer from '../../components/ui/PageContainer';
+import Text from '../../components/ui/Text';
+import { useAlert } from '../../hooks';
+import DeleteNote from '../DeleteNote';
 import KeyModal from './KeyModal/KeyModal';
 import noteQuery from './Note.query.gql';
 import Share from './Share';
-import DeleteNote from '../DeleteNote';
-import { useAlert } from '../../hooks';
-import Text from '../../components/ui/Text';
 
 interface NoteQueryData {
   note: Pick<NoteModel, 'title' | 'cipher' | 'iv' | 'hmac' | 'views'>;
@@ -59,11 +59,10 @@ const Note: FunctionComponent<Props> = ({ id, location }) => {
       decryptAndVerify(key, cipher, iv, hmac)
         .then(setContent)
         .catch(() => {
-          alert('Failed to decrypt the note', (
-            <Text>
-              The note could not be decrypted. Please make sure the password is correct.
-            </Text>
-          ))
+          alert(
+            'Failed to decrypt the note',
+            <Text>The note could not be decrypted. Please make sure the password is correct.</Text>
+          );
         });
     }
   }, [key, data]);
@@ -81,21 +80,21 @@ const Note: FunctionComponent<Props> = ({ id, location }) => {
   if (loading || !content) {
     component = (
       <Card>
-        <ContentPlaceholder/>
+        <ContentPlaceholder />
       </Card>
     );
   }
 
   if (!loading && !data?.note) {
-    component = <NotFound/>;
+    component = <NotFound />;
   }
 
   if (error) {
-    component = <FailedToLoad/>;
+    component = <FailedToLoad />;
   }
 
   if (data && content) {
-    component = <NoteCard title={data.note.title} content={content} views={data.note.views}/>;
+    component = <NoteCard title={data.note.title} content={content} views={data.note.views} />;
   }
 
   return (
@@ -103,8 +102,8 @@ const Note: FunctionComponent<Props> = ({ id, location }) => {
       <Header>
         {data?.note && (
           <>
-            <DeleteNote id={id!}/>
-            <Share id={id!} password={key}/>
+            <DeleteNote id={id!} />
+            <Share id={id!} password={key} />
           </>
         )}
         <ButtonLink to="/" type="dark">
@@ -112,7 +111,7 @@ const Note: FunctionComponent<Props> = ({ id, location }) => {
         </ButtonLink>
       </Header>
 
-      <KeyModal isVisible={isVisible} onContinue={handleContinue} onClose={handleClose}/>
+      <KeyModal isVisible={isVisible} onContinue={handleContinue} onClose={handleClose} />
 
       <PageContainer>
         <Heading as="h2">View note</Heading>

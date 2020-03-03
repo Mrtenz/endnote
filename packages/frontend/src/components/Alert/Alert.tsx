@@ -10,11 +10,11 @@ interface Props {
 
 const Alert: FunctionComponent<Props> = ({ title, isVisible, children, onClose }) => (
   <Modal title={title} isVisible={isVisible} onClose={onClose}>
-    <ModalBody>
-      {children}
-    </ModalBody>
+    <ModalBody>{children}</ModalBody>
     <ModalFooter>
-      <Button type="secondary" onClick={onClose}>Close</Button>
+      <Button type="secondary" onClick={onClose}>
+        Close
+      </Button>
     </ModalFooter>
   </Modal>
 );

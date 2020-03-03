@@ -8,10 +8,10 @@ import Card from '../../components/ui/Card';
 import Heading from '../../components/ui/Heading';
 import PageContainer from '../../components/ui/PageContainer';
 import { useDispatch, useSelector } from '../../hooks';
+import { addToken } from '../../store/tokens';
 import addNoteQuery from './AddNote.query.gql';
 import CaptchaModal from './CaptchaModal';
 import Settings from './Settings';
-import { addToken } from '../../store/tokens';
 
 interface AddNoteQueryData {
   addNote: Pick<NoteModel, 'id'> & {
@@ -70,11 +70,13 @@ const AddNote: FunctionComponent<Props> = ({ navigate }) => {
       )
       .then(({ data }) => {
         if (data) {
-          dispatch(addToken({
-            id: data.addNote.id,
-            token: data.addNote.token,
-            expiryDate: data.addNote.expiryDate
-          }));
+          dispatch(
+            addToken({
+              id: data.addNote.id,
+              token: data.addNote.token,
+              expiryDate: data.addNote.expiryDate
+            })
+          );
           return navigate?.(`/${data.addNote.id}#${password}${salt}`);
         }
       });

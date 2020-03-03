@@ -67,7 +67,7 @@ const FieldCounter = styled.div<FieldCounterProps>`
   display: inline-block;
   padding: 0.6rem 0.8rem;
   margin: 1rem auto 0 auto;
-  background: ${({ theme, overLimit }) => (overLimit ? theme.colors.error : theme.colors.success)};
+  background: ${({ theme, overLimit }) => (overLimit ? theme.colors.danger : theme.colors.success)};
   border-radius: ${({ theme }) => theme.borderRadius};
   font-size: 1.15rem;
   color: ${({ theme }) => theme.buttonInvertedText};

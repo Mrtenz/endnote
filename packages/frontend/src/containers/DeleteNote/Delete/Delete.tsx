@@ -4,7 +4,7 @@ import IconButton from '../../../components/ui/IconButton';
 import DeleteModal from '../DeleteModal';
 
 interface Props {
-  onConfirm (): void;
+  onConfirm(): void;
 }
 
 const Delete: FunctionComponent<Props> = ({ onConfirm }) => {
@@ -28,7 +28,7 @@ const Delete: FunctionComponent<Props> = ({ onConfirm }) => {
       <Tooltip text="Delete this note">
         <IconButton icon="trashCan" color="lightGrey" onClick={handleClick} />
       </Tooltip>
-      <DeleteModal isVisible={isVisible} onConfirm={handleConfirm} onClose={handleClose}/>
+      <DeleteModal isVisible={isVisible} onConfirm={handleConfirm} onClose={handleClose} />
     </>
   );
 };

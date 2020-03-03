@@ -2,9 +2,7 @@ import React, { createContext, FunctionComponent, ReactNode, useState } from 're
 import { createPortal } from 'react-dom';
 import Alert from '../../../components/Alert';
 
-interface AlertContextFunction {
-  (title: string, content: ReactNode): void;
-}
+type AlertContextFunction = (title: string, content: ReactNode) => void;
 
 export const AlertContext = createContext<AlertContextFunction | undefined>(undefined);
 
@@ -13,9 +11,9 @@ const AlertProvider: FunctionComponent = ({ children }) => {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<ReactNode>(<></>);
 
-  const handleAlert = (title: string, content: ReactNode) => {
-    setTitle(title);
-    setContent(content);
+  const handleAlert = (newTitle: string, newContent: ReactNode) => {
+    setTitle(newTitle);
+    setContent(newContent);
     setVisible(true);
   };
 
@@ -31,9 +29,7 @@ const AlertProvider: FunctionComponent = ({ children }) => {
         </Alert>,
         document.getElementById('alert')!
       )}
-      <AlertContext.Provider value={handleAlert}>
-        {children}
-      </AlertContext.Provider>
+      <AlertContext.Provider value={handleAlert}>{children}</AlertContext.Provider>
     </>
   );
 };
