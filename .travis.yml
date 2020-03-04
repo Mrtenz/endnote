@@ -17,6 +17,8 @@ install:
   - yarn workspace @endnote/common run build
 
 script:
+  - yarn run test
+  - yarn run coverage
   - yarn run lint
 
 before_deploy:

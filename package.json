@@ -11,6 +11,8 @@
     "start": "wsrun -- start",
     "dev": "wsrun -- dev",
     "dev:docker": "docker-compose -f docker-compose.dev.yml down && docker-compose -f docker-compose.dev.yml up --build",
+    "test": "jest",
+    "coverage": "codecov -f coverage/*.json",
     "lint": "yarn run lint:tsc && yarn run lint:tslint && yarn run lint:prettier",
     "lint:tsc": "tsc --noEmit",
     "lint:tslint": "tslint --project .",
@@ -18,6 +20,8 @@
     "prettier": "prettier --write '**/*.{ts,tsx,js,json,md}'"
   },
   "devDependencies": {
+    "@types/jest": "^25.1.3",
+    "codecov": "^3.6.5",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.8",

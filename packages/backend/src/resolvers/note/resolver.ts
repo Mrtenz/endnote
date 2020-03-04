@@ -29,7 +29,8 @@ export class NoteResolver {
       await this.noteRepository.save(note);
 
       // `+1` because the note will always be seen once after creating it
-      if (note.maxViews && note.views > BigInt(note.maxViews) + 1n) {
+      // Note: `ts-jest` doesn't like the `1n` syntax so we need `BigInt(1)` here
+      if (note.maxViews && note.views > BigInt(note.maxViews) + BigInt(1)) {
         await this.noteRepository.delete(note);
       }
 
