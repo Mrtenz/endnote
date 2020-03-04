@@ -1,8 +1,6 @@
 module.exports = {
   displayName: '@endnote/common',
-  roots: [
-    './src'
-  ],
+  roots: ['./src'],
   setupFilesAfterEnv: ['./jest/setupTests.ts'],
   snapshotResolver: './jest/snapshotResolver.js',
   transform: {

@@ -1,12 +1,8 @@
 module.exports = {
   displayName: '@endnote/backend',
-  roots: [
-    './src'
-  ],
+  roots: ['./src'],
   collectCoverage: true,
-  collectCoverageFrom: [
-    './src/**/*.ts?(x)'
-  ],
+  collectCoverageFrom: ['./src/**/*.ts?(x)'],
   setupFilesAfterEnv: ['./jest/setupTests.ts'],
   snapshotResolver: './jest/snapshotResolver.js',
   testEnvironment: 'node',

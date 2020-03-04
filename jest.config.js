@@ -1,13 +1,7 @@
 module.exports = {
-  projects: [
-    '<rootDir>/packages/*'
-  ],
+  projects: ['<rootDir>/packages/*'],
   collectCoverage: true,
-  collectCoverageFrom: [
-    '**/*.ts?(x)',
-    '!**/*.d.ts',
-    '!jest/**/*'
-  ],
+  collectCoverageFrom: ['**/*.ts?(x)', '!**/*.d.ts', '!jest/**/*'],
   transform: {
     '^.+\\.[t|j]sx?$': 'babel-jest'
   }
