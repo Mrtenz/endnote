@@ -1,3 +1,5 @@
+import { TextEncoder } from 'util';
+
 /**
  * Returns the length of a string in bytes. This takes special characters (like emoji) into account.
  *
