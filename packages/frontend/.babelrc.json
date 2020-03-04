@@ -1,8 +1,5 @@
 {
-  "presets": [
-    "@babel/preset-typescript",
-    "@babel/preset-react"
-  ],
+  "presets": ["@babel/preset-typescript", "@babel/preset-react"],
   "plugins": [
     "react-hot-loader/babel",
     "babel-plugin-styled-components",
