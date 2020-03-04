@@ -5,7 +5,7 @@ const AES_ALGORITHM = 'aes-256-cbc';
 const HASH_ALGORITHM = 'sha512';
 
 /**
- * Deterministically generate a 256-bit key from a password. Returns the key as Buffer.
+ * Deterministically generate a 512-bit key from a password. Returns the key as Buffer.
  *
  * @param {string} password
  * @param {string} salt
@@ -28,11 +28,13 @@ export const generateKey = (password: string, salt: string): Promise<Buffer> => 
  *
  * @param {string} content
  * @param {Buffer} key
+ * @param {Buffer} [iv]
  * @return {Promise<Buffer>}
  */
 export const encrypt = async (
   content: string,
-  key: Buffer
+  key: Buffer,
+  iv?: Buffer
 ): Promise<{
   iv: Buffer;
   cipher: Buffer;
@@ -40,7 +42,7 @@ export const encrypt = async (
 }> => {
   const aesKey = key.slice(0, 32);
   const macKey = key.slice(32, 64);
-  const iv = randomBytes(16);
+  iv = iv ?? randomBytes(16);
 
   const cipher = createCipheriv(AES_ALGORITHM, aesKey, iv);
   const contentBuffer = Buffer.concat([cipher.update(content, 'utf8'), cipher.final()]);

@@ -1,6 +1,7 @@
 module.exports = {
   displayName: '@endnote/frontend',
   roots: ['./src'],
+  clearMocks: true,
   moduleNameMapper: {
     '\\.(woff|woff2|svg)$': './jest/fileMock.ts'
   },

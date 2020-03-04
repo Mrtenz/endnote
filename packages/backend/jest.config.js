@@ -1,6 +1,7 @@
 module.exports = {
   displayName: '@endnote/backend',
   roots: ['./src'],
+  clearMocks: true,
   collectCoverage: true,
   collectCoverageFrom: ['./src/**/*.ts?(x)'],
   setupFilesAfterEnv: ['./jest/setupTests.ts'],
