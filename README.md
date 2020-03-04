@@ -1,5 +1,7 @@
 # Endnote
 
+![License](https://img.shields.io/github/license/Mrtenz/endnote) [![Travis CI](https://travis-ci.com/Mrtenz/endnote.svg?branch=master)](https://travis-ci.com/Mrtenz/endnote) [![codecov](https://codecov.io/gh/Mrtenz/endnote/branch/master/graph/badge.svg)](https://codecov.io/gh/Mrtenz/endnote)
+
 End-to-end encrypted note sharing application.
 
 https://endnote.to
@@ -18,6 +20,8 @@ appended as URL hash (which is not sent to the server at all). Only with this pa
 When viewing a note, the encrypted content, initialisation vector and HMAC are fetched from the server. A new HMAC is
 generated from the encrypted content, and compared with the HMAC fetched from the server. If the HMAC matches, the
 content is decrypted using the password and you will see the note.
+
+---
 
 ## Running your own
 
