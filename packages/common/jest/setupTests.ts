@@ -1,4 +1,6 @@
+import { TextEncoder } from 'util';
+
 if (typeof TextEncoder === 'undefined') {
-  const { TextEncoder } = require('util');
-  (window as any).TextEncoder = TextEncoder; // tslint:ignore-line
+  // tslint:disable-next-line
+  (window as any).TextEncoder = TextEncoder;
 }
